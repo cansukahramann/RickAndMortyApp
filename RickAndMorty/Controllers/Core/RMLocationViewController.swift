@@ -12,8 +12,9 @@ final class RMLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
+        navigationItem.largeTitleDisplayMode = .automatic
         title = "Locations"
+        view.backgroundColor = .systemBackground
     }
 
 }

@@ -12,8 +12,10 @@ final class RMEpisodeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
+        navigationItem.largeTitleDisplayMode = .automatic
         title = "Episodes"
+        
+        view.backgroundColor = .systemBackground
     }
 
 }
