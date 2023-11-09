@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RMCharacterViewController: UIViewController, RMCharacterListViewDelegate {
+final class RMCharacterViewController: UIViewController, RMCharacterListViewDelegate{
     
     let characterListView = RMCharacterListView()
 
@@ -16,9 +16,20 @@ final class RMCharacterViewController: UIViewController, RMCharacterListViewDele
 
         navigationItem.largeTitleDisplayMode = .automatic
         title = "Characters"
-                
         view.backgroundColor = .systemBackground
         setUpView()
+        addSearchButton()
+    }
+    
+    private func addSearchButton(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapSearch))
+    }
+    
+    @objc
+    private func didTapSearch(){
+        let vc = RMSearchViewController(config: RMSearchViewController.Config(type: .character))
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setUpView(){

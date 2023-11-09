@@ -7,20 +7,14 @@
 
 import Foundation
 
-//extension String {
-//    var asURL: URL? {
-//        URL(string: self)
-//    }
-//}
-
-/// Bu class bize bir URL hazırlar.
+/// This class preapres the URL 
 final class RMRequest{
     
     private struct Constants {
         static let baseUrl =  "https://rickandmortyapi.com/api"
     }
     
-    private let endpoint: RMEndpoint
+    let endpoint: RMEndpoint
     private let pathComponent: [String]
     private let queryParameters: [URLQueryItem]
 
@@ -62,20 +56,27 @@ final class RMRequest{
             self.endpoint = endpoint
             self.pathComponent = pathComponent
             self.queryParameters = queryParameters
-            
         }
+    
         convenience init?(url: URL){
             let string = url.absoluteString
+            
             if  !string.contains(Constants.baseUrl){
                 return nil
             }
+            
             let trimmed = string.replacingOccurrences(of: Constants.baseUrl+"/", with: "")
             if trimmed.contains("/"){
                 let components = trimmed.components(separatedBy: "/")
                 if !components.isEmpty{
                     let endpointString = components[0]
+                    var pathComponents: [String] = []
+                    if components.count > 1 {
+                        pathComponents = components
+                        pathComponents.removeFirst()
+                    }
                     if let rmEndpoint = RMEndpoint(rawValue: endpointString){
-                        self.init(endpoint: rmEndpoint)
+                        self.init(endpoint: rmEndpoint, pathComponent: pathComponents)
                         return
                     }
                 }
@@ -108,4 +109,6 @@ final class RMRequest{
 
 extension RMRequest {
     static let listCharactersRequest = RMRequest(endpoint: .character)
+    static let listEpisodesRequest = RMRequest(endpoint: .episode)
+    static let listLocaitonsRequest = RMRequest(endpoint: .location)
 }

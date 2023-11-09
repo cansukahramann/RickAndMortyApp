@@ -1,15 +1,15 @@
 //
-//  RMGetAllCharactersResponse.swift
+//  GetAllEpisodesResponse.swift
 //  RickAndMorty
 //
-//  Created by Cansu Kahraman on 6.10.2023.
+//  Created by Cansu Kahraman on 30.10.2023.
 //
 
 import Foundation
 
-struct RMGetAllCharactersResponse: Decodable {
+struct RMGetAllEpisodesResponse: Decodable {
     let info: Info
-    let results: [RMCharacter]
+    let results: [RMEpisode]
     
     struct Info: Decodable {
         let count: Int

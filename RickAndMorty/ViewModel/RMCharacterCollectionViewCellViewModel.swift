@@ -8,7 +8,7 @@
 import UIKit
 
 
-final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable{
+final class RMCharacterCollectionViewCellViewModel: Hashable {
     
     let characterName: String
     private let characterStatus: RMCharacterStatus
@@ -23,7 +23,6 @@ final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable{
         hasher.combine(characterStatus)
         hasher.combine(characterImageUrl)
     }
-    
     
     init(characterName: String, characterStatus: RMCharacterStatus, characterImageUrl: URL?) {
         self.characterName = characterName

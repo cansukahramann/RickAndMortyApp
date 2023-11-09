@@ -7,10 +7,8 @@
 
 import Foundation
 
-
-final class RMImageLoader{
+final class RMImageLoader {
     static let shared = RMImageLoader()
-    
     private init() {}
     
     private var imageDataCache = NSCache<NSString, NSData>()
@@ -20,17 +18,17 @@ final class RMImageLoader{
     ///  - url: Source url
     ///  - completion: Callback
     
-    func downloadImage(_ url: URL, completion: @escaping (Result<Data, Error>) -> Void){
+    func downloadImage(_ url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         
         let key = url.absoluteString as NSString
-        if let data = imageDataCache.object(forKey: key){
-            print("Reading from cache: \(key)")
-            completion(.success(data as Data)) //NSData == Data | NSString == String
+        
+        if let data = imageDataCache.object(forKey: key) {
+            completion(.success(data as Data)) // NSData == Data | NSString == String
             return
         }
         
         let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
             if let error = error {
                 completion(.failure(error))
@@ -43,14 +41,17 @@ final class RMImageLoader{
                 completion(.failure(URLError(.badServerResponse)))
                 return
             }
+            
             guard let data = data else {
                 completion(.failure(RMServiceError.failedToGetData))
                 return
             }
+            
             let value = data as NSData
-            self?.imageDataCache.setObject(value, forKey: key)
+            self.imageDataCache.setObject(value, forKey: key)
             completion(.success(data))
         }
+        
         task.resume()
     }
 }
