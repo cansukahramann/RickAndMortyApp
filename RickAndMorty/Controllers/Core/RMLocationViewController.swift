@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RMLocationViewController: UIViewController {
+final class RMLocationViewController: UIViewController, RMLocationViewViewModelDelegate {
     
     private let primaryView = RMLocationView()
     
@@ -21,6 +21,9 @@ final class RMLocationViewController: UIViewController {
         view.backgroundColor = .systemBackground
         addSearchButton()
         addConstraints()
+        viewModel.delegate = self
+        viewModel.fetchLocations()
+        
     }
 
     private func addSearchButton(){
@@ -33,6 +36,7 @@ final class RMLocationViewController: UIViewController {
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true )
     }
+    
     private func addConstraints(){
         NSLayoutConstraint.activate([
             primaryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -41,6 +45,10 @@ final class RMLocationViewController: UIViewController {
             primaryView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             
         ])
+    }
+    
+    func didFetchInitialLocations() {
+        primaryView.configure(with: viewModel)
     }
 
 }
