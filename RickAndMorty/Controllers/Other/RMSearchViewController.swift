@@ -6,14 +6,27 @@
 //
 
 import UIKit
-
+///Configurable controller to search
 class RMSearchViewController: UIViewController {
-
+    
+    ///Configuration for search session
     struct Config {
         enum `Type` {
-            case character
-            case episode
-            case location
+            case character // name | status | gender
+            case episode  // name
+            case location // name | type
+            
+            var title: String {
+                switch self {
+                case .character:
+                    return "Search Characters"
+                case.location:
+                    return "Search Locations"
+                case.episode:
+                    return "Search Episode"
+                }
+            }
+            
         }
         let type: `Type`
     }
@@ -31,8 +44,8 @@ class RMSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Search"
+        title = config.type.title
         view.backgroundColor = .systemBackground
-
+        
     }
 }

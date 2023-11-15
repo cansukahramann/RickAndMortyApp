@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RMLocationViewController: UIViewController, RMLocationViewViewModelDelegate {
+final class RMLocationViewController: UIViewController, RMLocationViewViewModelDelegate, RMLocationViewDelegate {
     
     private let primaryView = RMLocationView()
     
@@ -15,6 +15,7 @@ final class RMLocationViewController: UIViewController, RMLocationViewViewModelD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        primaryView.delegate = self
         view.addSubview(primaryView)
         navigationItem.largeTitleDisplayMode = .automatic
         title = "Locations"
@@ -46,6 +47,13 @@ final class RMLocationViewController: UIViewController, RMLocationViewViewModelD
             
         ])
     }
+    
+    func rmLocationView( _ locationVİew: RMLocationView, didSelect location: RMLocation) {
+        let vc = RMLocationDetailViewController(location: location)
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     
     func didFetchInitialLocations() {
         primaryView.configure(with: viewModel)

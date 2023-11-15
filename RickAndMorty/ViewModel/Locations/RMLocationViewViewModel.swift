@@ -31,10 +31,16 @@ final class RMLocationViewViewModel {
     
     private var apiInfo: RMGetAllLocationsResponse.Info?
     
-     var cellViewModels: [RMLocationTableViewCellViewModel] = []
-    
+    public private(set) var cellViewModels: [RMLocationTableViewCellViewModel] = []
     
     init() { }
+    
+    func location(at index: Int) -> RMLocation? {
+        guard index < locations.count, index >= 0 else {
+            return nil
+        }
+        return self.locations[index]
+    }
     
     func fetchLocations() {
         RMService.shared.execute(.listLocaitonsRequest, expecting:RMGetAllLocationsResponse.self) { [weak self] result in
