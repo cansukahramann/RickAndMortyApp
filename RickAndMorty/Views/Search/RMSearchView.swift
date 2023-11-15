@@ -10,17 +10,32 @@ import UIKit
 final class RMSearchView: UIView {
     
     private let viewModel: RMSearchViewViewModel
-
-     init(frame: CGRect, viewModel: RMSearchViewViewModel) {
+    
+    private let noResultView = RMNoSearchResultsView()
+    
+    init(frame: CGRect, viewModel: RMSearchViewViewModel) {
         self.viewModel = viewModel
         super.init(frame: frame)
+        isHidden = false
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .red
+        backgroundColor = .systemBackground
+        addSubviews(noResultView)
+        addConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            noResultView.heightAnchor.constraint(equalToConstant: 150),
+            noResultView.widthAnchor.constraint(equalToConstant: 150),
+            noResultView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            noResultView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+    
 }
 
 extension RMSearchView: UICollectionViewDelegate, UICollectionViewDataSource {
