@@ -9,7 +9,7 @@ import UIKit
 
 final class RMCharacterInfoCollectionViewCellViewModel {
     
-    private let type: `Type`
+    private let type: `Type` 
     private let value: String
     
     static let dateFormatter: DateFormatter = {
