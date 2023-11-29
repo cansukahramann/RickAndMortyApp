@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct RMGetAllEpisodesResponse: Decodable {
+struct RMGetAllEpisodesResponse: Codable {
     let info: Info
     let results: [RMEpisode]
     
-    struct Info: Decodable {
+    struct Info: Codable {
         let count: Int
         let pages: Int
         let next: String?

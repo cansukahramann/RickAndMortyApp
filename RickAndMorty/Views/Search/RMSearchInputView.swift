@@ -10,8 +10,11 @@ import UIKit
 protocol RMSearchInputViewDelegate: AnyObject {
     func rmSearchInputView(_ inputView: RMSearchInputView,
                            didSelectOption option: RMSearchInputViewViewModel.DynamicOptions)
+    func rmSearchInputView(_ inputView: RMSearchInputView,
+                           didChangeSearchText text: String)
+    func rmSearchInputViewDidTapSearchKeybordButton(_ inputView: RMSearchInputView)
 }
-
+/// View for top part of search screen with search bar
 final class RMSearchInputView: UIView {
     
     weak var delegate: RMSearchInputViewDelegate?
@@ -40,6 +43,8 @@ final class RMSearchInputView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         addSubviews(searchBar)
         addConstraints()
+        
+        searchBar.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -122,11 +127,22 @@ final class RMSearchInputView: UIView {
               let index = allOptions.firstIndex(of: option) else {
             return
         }
-        let button: UIButton = buttons[index]
-        button.setAttributedTitle(NSAttributedString(string: value.uppercased(),attributes: [
+        buttons[index].setAttributedTitle(NSAttributedString(string: value.uppercased(),attributes: [
             .font: UIFont.systemFont(ofSize: 18, weight: .medium),
             .foregroundColor: UIColor.link]),for: .normal)
         
     }
     
+}
+
+extension RMSearchInputView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        delegate?.rmSearchInputView(self, didChangeSearchText: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        delegate?.rmSearchInputViewDidTapSearchKeybordButton(self)
+    }
 }

@@ -37,7 +37,7 @@ final class RMService {
                 return
             }
             
-            let task = URLSession.shared.dataTask(with: urlRequest) {[weak self] data, response, error in
+            let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
                 
                 if let error = error {
                     completion(.failure(error))
@@ -60,7 +60,7 @@ final class RMService {
                 do {
                     let result = try JSONDecoder().decode(type.self, from: data)
                     
-                    self?.cacheManager.setCache(for: request.endpoint,
+                    self.cacheManager.setCache(for: request.endpoint,
                                                 url: request.url,
                                                 data: data)
                     

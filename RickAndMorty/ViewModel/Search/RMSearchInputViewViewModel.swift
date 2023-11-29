@@ -16,6 +16,14 @@ final class RMSearchInputViewViewModel {
         case gender = "Gender"
         case locationType = "Location Type"
         
+        var queryArgument: String {
+            switch self {
+            case .status: return "status"
+            case.gender: return "gender"
+            case.locationType: return "type"
+            }
+        }
+        
         var choices: [String] {
             switch self {
             case .status:
@@ -25,15 +33,14 @@ final class RMSearchInputViewViewModel {
             case.locationType:
                 return ["cluster", "planet", "microverse"]
             }
+        }
     }
-}
-    
-    
+
     init(type: RMSearchViewController.Config.`Type`) {
         self.type = type
     }
     
-    public var hasDynamicOpstions: Bool {
+    var hasDynamicOpstions: Bool {
         switch self.type {
         case.character, .location:
             return true
@@ -42,7 +49,7 @@ final class RMSearchInputViewViewModel {
         }
     }
     
-    public var options: [DynamicOptions] {
+    var options: [DynamicOptions] {
         switch self.type {
         case.character:
             return [.status, .gender]
@@ -53,7 +60,7 @@ final class RMSearchInputViewViewModel {
         }
     }
     
-    public var searchPlaceHolderText: String {
+     var searchPlaceHolderText: String {
         switch self .type {
         case .character:
             return "Character Name"

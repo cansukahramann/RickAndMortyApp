@@ -16,8 +16,7 @@ final class RMLocationDetailViewViewModel {
     
     private let endpointUrl: URL?
     
-    //????*
-    private var dataTuple: (location: RMLocation,characters: [RMCharacter])? {
+    private var dataTuple: (location: RMLocation, characters: [RMCharacter])? {
         didSet {
             createCellViewModels()
             delegate?.didFetchLocationDetails()
@@ -48,6 +47,7 @@ final class RMLocationDetailViewViewModel {
         guard let dataTuple = dataTuple else {
             return
         }
+        
         let location = dataTuple.location
         let characters = dataTuple.characters
         

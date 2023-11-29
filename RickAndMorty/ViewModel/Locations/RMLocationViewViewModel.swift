@@ -31,7 +31,7 @@ final class RMLocationViewViewModel {
     
     private var apiInfo: RMGetAllLocationsResponse.Info?
     
-    public private(set) var cellViewModels: [RMLocationTableViewCellViewModel] = []
+    private(set) var cellViewModels: [RMLocationTableViewCellViewModel] = []
     
     init() { }
     

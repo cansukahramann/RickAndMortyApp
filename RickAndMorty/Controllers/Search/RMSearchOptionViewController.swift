@@ -19,7 +19,6 @@ final class RMSearchOptionViewController: UIViewController {
         return tableView
     }()
     
-    //selrction ???
     init(option: RMSearchInputViewViewModel.DynamicOptions, selection: @escaping(String)-> Void) {
         self.option = option
         self.selectionBlock = selection
