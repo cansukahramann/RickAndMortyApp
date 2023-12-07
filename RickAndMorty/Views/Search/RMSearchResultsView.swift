@@ -9,6 +9,8 @@ import UIKit
 
 protocol RMSearchResultsViewDelegate: AnyObject {
     func rmSearchResultsView(_ resultView: RMSearchResultsView, didTapLocationAt index: Int )
+    func rmSearchResultsView(_ resultView: RMSearchResultsView, didTapCharacterAt index: Int )
+    func rmSearchResultsView(_ resultView: RMSearchResultsView, didTapEpisodeAt index: Int )
 }
 
 
@@ -168,6 +170,19 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        switch viewModel.results {
+        case.characters:
+            delegate?.rmSearchResultsView(self, didTapCharacterAt: indexPath.row)
+        case.episodes:
+            delegate?.rmSearchResultsView(self, didTapEpisodeAt: indexPath.row)
+        case.loactions:
+            break
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -176,14 +191,14 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
         
         if currentViewModel is RMCharacterCollectionViewCellViewModel {
             //Character size
-            let width = (bounds.width-30)/2
-            return CGSize(
+            let width = UIDevice.isiPhone ? (bounds.width-30)/2 : (bounds.width-50)/4
+             return CGSize(
                 width: width,
                 height: width * 1.5
             )
         }
         //Episode
-        let width = bounds.width-20
+        let width = UIDevice.isiPhone ? (bounds.width-20) : (bounds.width-50)/2
         return CGSize(
             width: width,
             height: 100
@@ -206,7 +221,7 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         guard let viewModel =  viewModel,
-            viewModel.shouldShowLoadIndicator else{
+              viewModel.shouldShowLoadIndicator else{
             return .zero
         }
         return CGSize(width: collectionView.frame.width, height: 100)
@@ -238,11 +253,22 @@ extension RMSearchResultsView: UIScrollViewDelegate {
             let totalScrollViewFixedHeight = scrollView.frame.size.height
             
             if offset >= (totalContetnHeight - totalScrollViewFixedHeight - 120){
-                
                 viewModel.fetchAdditionalResults { [weak self] newResults in
-                    //Refresh table
-                    self?.tableView.tableFooterView = nil
-                    self?.collectionViewCellViewModels = newResults
+                    guard let self = self else { return }
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.tableFooterView = nil
+                        
+                        let originalCount = self.collectionViewCellViewModels.count
+                        let newCount = (newResults.count - originalCount)
+                        let total = originalCount + newCount
+                        let startIndex = total - newCount
+                        let indexPathsToAdd: [IndexPath] = Array(startIndex..<(startIndex+newCount)).compactMap {
+                            return IndexPath(row: $0, section: 0)
+                        }
+                        self.collectionViewCellViewModels = newResults
+                        self.collectionView.insertItems(at: indexPathsToAdd)
+                    }
                 }
             }
         }

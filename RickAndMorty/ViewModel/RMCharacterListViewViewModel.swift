@@ -88,7 +88,8 @@ final class RMCharacterListViewViewModel: NSObject {
                 }
                 
                 self.characters.append(contentsOf: moreResults)
-                DispatchQueue.main.async { [self] in
+                
+                DispatchQueue.main.async {
                     self.delegate?.didLoadMoreCharacters(with: indexPathsToAdd )
                     self.isLoadingMoreCharacter = false
                 }
@@ -141,14 +142,13 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let isIphone = UIDevice.current.userInterfaceIdiom == .phone
-        
+       
         let bounds = UIScreen.main.bounds
         let width: CGFloat
-        if isIphone{
+        if UIDevice.isiPhone {
             width = (bounds.width-30)/2
         } else {
-            //ipad
+            //ipad || mac
             width = (bounds.width-50)/4
         }
         return CGSize(

@@ -115,7 +115,7 @@ final class RMSearchViewViewModel {
     func set(query text: String) {
         self.searchText = text
     }
-    
+
     func set (value: String, for option : RMSearchInputViewViewModel.DynamicOptions) {
         optionMap[option] = value
         let tuple = (option, value)
@@ -132,4 +132,18 @@ final class RMSearchViewViewModel {
         }
         return searchModel.results[index]
     }
+    func characterSearchResult(at index: Int) -> RMCharacter? {
+        guard let searchModel = searchResultModel as? RMGetAllCharactersResponse else {
+            return nil
+        }
+        return searchModel.results[index]
+    }
+    func episodeSearchResult(at index: Int) -> RMEpisode? {
+        guard let searchModel = searchResultModel as? RMGetAllEpisodesResponse else {
+            return nil
+        }
+        return searchModel.results[index]
+    }
+   
 }
+
