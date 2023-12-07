@@ -35,7 +35,7 @@ final class RMSearchInputViewViewModel {
             }
         }
     }
-
+    
     init(type: RMSearchViewController.Config.`Type`) {
         self.type = type
     }
@@ -60,7 +60,7 @@ final class RMSearchInputViewViewModel {
         }
     }
     
-     var searchPlaceHolderText: String {
+    var searchPlaceHolderText: String {
         switch self .type {
         case .character:
             return "Character Name"

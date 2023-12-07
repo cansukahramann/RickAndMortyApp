@@ -36,7 +36,7 @@ final class RMCharacterDetailView: UIView {
     }
     
     private func addConstraints() {
-    
+        
         NSLayoutConstraint.activate([
             spinner.widthAnchor.constraint(equalToConstant: 100),
             spinner.heightAnchor.constraint(equalToConstant: 100),

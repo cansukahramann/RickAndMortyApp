@@ -43,7 +43,7 @@ final class RMCharacterListView: UIView {
         
         translatesAutoresizingMaskIntoConstraints = false
         addSubviews(collectionView, spinner)
-
+        
         addConstraints()
         setUpCollectionView()
         viewModel.delegate = self

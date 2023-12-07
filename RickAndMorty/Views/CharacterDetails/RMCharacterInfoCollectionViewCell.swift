@@ -27,7 +27,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     }()
     
     private let iconImageView: UIImageView = {
-       let icon = UIImageView()
+        let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFit
         return icon
@@ -39,7 +39,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = .secondarySystemBackground
         return view
     }()
- 
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .tertiarySystemBackground

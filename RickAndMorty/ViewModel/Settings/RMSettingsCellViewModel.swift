@@ -10,7 +10,7 @@ import  UIKit
 struct RMSettingsCellViewModel: Identifiable {
     let id = UUID()
     
-     let type: RMSettingsOption
+    let type: RMSettingsOption
     let onTapHandler: (RMSettingsOption) -> Void
     
     init(type: RMSettingsOption, onTapHandler: @escaping(RMSettingsOption) -> Void) {

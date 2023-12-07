@@ -26,7 +26,7 @@ final class RMLocationViewController: UIViewController, RMLocationViewViewModelD
         viewModel.fetchLocations()
         
     }
-
+    
     private func addSearchButton(){
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapSearch))
     }
@@ -58,5 +58,5 @@ final class RMLocationViewController: UIViewController, RMLocationViewViewModelD
     func didFetchInitialLocations() {
         primaryView.configure(with: viewModel)
     }
-
+    
 }

@@ -11,7 +11,7 @@ protocol RMSearchViewDelegate: AnyObject {
     func rmSearchView(_ searchView: RMSearchView, didSelectOption option: RMSearchInputViewViewModel.DynamicOptions)
     
     func rmSearchView(_ searchView: RMSearchView, didSelectLocation location: RMLocation)
-
+    
 }
 
 final class RMSearchView: UIView {
@@ -84,7 +84,7 @@ final class RMSearchView: UIView {
         ])
     }
     
-     func presentKeyboard() {
+    func presentKeyboard() {
         searchInputView.presentKeyboard()
     }
     

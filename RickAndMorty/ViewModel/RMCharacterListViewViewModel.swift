@@ -33,7 +33,7 @@ final class RMCharacterListViewViewModel: NSObject {
                 if !cellViewModels.contains(viewModel){
                     cellViewModels.append(viewModel)
                 }
-               
+                
             }
         }
     }
@@ -113,7 +113,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifer, for: indexPath) as? RMCharacterCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifer, for: indexPath) as? RMCharacterCollectionViewCell else {
             fatalError("Unsportted cell")
         }
         cell.configure(with: cellViewModels[indexPath.row ])
@@ -131,7 +131,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         
     }
     
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         guard shouldShowLoadIndicator else{
             return .zero
@@ -140,14 +140,23 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let isIphone = UIDevice.current.userInterfaceIdiom == .phone
+        
         let bounds = UIScreen.main.bounds
-        let width = (bounds.width-30)/2
+        let width: CGFloat
+        if isIphone{
+            width = (bounds.width-30)/2
+        } else {
+            //ipad || mac
+            width = (bounds.width-50)/4 
+        }
         return CGSize(
             width: width,
             height: width * 1.5
-            )
+        )
     }
-          
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
     }
@@ -164,16 +173,16 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
         guard shouldShowLoadIndicator,
               !isLoadingMoreCharacter,
               !cellViewModels.isEmpty,
-        let nextUrlString = apiInfo?.next,
-        let url = URL(string: nextUrlString) else {
+              let nextUrlString = apiInfo?.next,
+              let url = URL(string: nextUrlString) else {
             return
         }
-
+        
         Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
             let offset = scrollView.contentOffset.y
             let totalContetnHeight = scrollView.contentSize.height
             let totalScrollViewFixedHeight = scrollView.frame.size.height
-
+            
             if offset >= (totalContetnHeight - totalScrollViewFixedHeight - 120){
                 self?.fetchAdditionalCharacter(url: url)
             }

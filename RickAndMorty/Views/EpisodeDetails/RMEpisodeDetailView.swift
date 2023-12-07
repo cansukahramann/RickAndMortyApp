@@ -83,8 +83,8 @@ final class RMEpisodeDetailView: UIView {
         return collectionView
     }
     
-     func configure(with viewModel: RMEpisodeDetailViewViewModel){
-         self.viewModel = viewModel
+    func configure(with viewModel: RMEpisodeDetailViewViewModel){
+        self.viewModel = viewModel
     }
     
 }
@@ -181,7 +181,7 @@ extension RMEpisodeDetailView {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.5),
             heightDimension: .fractionalHeight(1.0)))
-            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 10, trailing: 5)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 10, trailing: 5)
         
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize:NSCollectionLayoutSize(

@@ -31,7 +31,7 @@ final class RMEpisodeListViewViewModel: NSObject {
         .systemYellow,
         .systemIndigo,
         .systemMint
-    
+        
     ]
     
     private var episodes: [RMEpisode] = []{
@@ -40,12 +40,12 @@ final class RMEpisodeListViewViewModel: NSObject {
                 let viewModel = RMCharacterEpisodeCollectionViewCellViewModel(
                     episodeDataUrl: URL(string: episode.url),
                     borderColor:  borderColors.randomElement() ?? .systemBlue
-                    )
+                )
                 
-                 if !cellViewModels.contains(viewModel){
+                if !cellViewModels.contains(viewModel){
                     cellViewModels.append(viewModel)
                 }
-               
+                
             }
         }
     }
@@ -70,7 +70,7 @@ final class RMEpisodeListViewViewModel: NSObject {
             }
         }
     }
-    
+    ///Paginate if additional episodes are needed 
     func fetchAdditionalEpisode(url: URL){
         guard !isLoadingMoreCharacter else {
             return
@@ -123,7 +123,7 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterEpisodeCollectionViewCell.cellIdentifer, for: indexPath) as? RMCharacterEpisodeCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterEpisodeCollectionViewCell.cellIdentifer, for: indexPath) as? RMCharacterEpisodeCollectionViewCell else {
             fatalError("Unsportted cell")
         }
         cell.configure(with: cellViewModels[indexPath.row ])
@@ -141,7 +141,7 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
         
     }
     
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         guard shouldShowLoadIndicator else{
             return .zero
@@ -155,9 +155,9 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
         return CGSize(
             width: width,
             height: 100
-            )
+        )
     }
-          
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
     }
@@ -168,19 +168,19 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
         delegate?.didSelectEpisode(selection)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard !isLoadingMoreCharacter, shouldShowLoadIndicator, !cellViewModels.isEmpty, indexPath.item >= cellViewModels.count - 2 else { return }
-//
-//        guard let nextUrlString = apiInfo?.next,
-//        let url = URL(string: nextUrlString) else {
-//            return
-//        }
-//
-//        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
-//            self?.fetchAdditionalCharacter(url: url)
-//            t.invalidate()
-//        }
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    //        guard !isLoadingMoreCharacter, shouldShowLoadIndicator, !cellViewModels.isEmpty, indexPath.item >= cellViewModels.count - 2 else { return }
+    //
+    //        guard let nextUrlString = apiInfo?.next,
+    //        let url = URL(string: nextUrlString) else {
+    //            return
+    //        }
+    //
+    //        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+    //            self?.fetchAdditionalCharacter(url: url)
+    //            t.invalidate()
+    //        }
+    //    }
 }
 
 extension RMEpisodeListViewViewModel: UIScrollViewDelegate {
@@ -188,16 +188,16 @@ extension RMEpisodeListViewViewModel: UIScrollViewDelegate {
         guard shouldShowLoadIndicator,
               !isLoadingMoreCharacter,
               !cellViewModels.isEmpty,
-        let nextUrlString = apiInfo?.next,
-        let url = URL(string: nextUrlString) else {
+              let nextUrlString = apiInfo?.next,
+              let url = URL(string: nextUrlString) else {
             return
         }
-
+        
         Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
             let offset = scrollView.contentOffset.y
             let totalContetnHeight = scrollView.contentSize.height
             let totalScrollViewFixedHeight = scrollView.frame.size.height
-
+            
             if offset >= (totalContetnHeight - totalScrollViewFixedHeight - 120){
                 self?.fetchAdditionalEpisode(url: url)
             }

@@ -8,13 +8,13 @@
 import UIKit
 
 final class RMTabBarController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpTaps()
     }
-
+    
     private func setUpTaps(){
         let nav1 = UINavigationController(rootViewController: RMCharacterViewController())
         let nav2 = UINavigationController(rootViewController: RMLocationViewController())

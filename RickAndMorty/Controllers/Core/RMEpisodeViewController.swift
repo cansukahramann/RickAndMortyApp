@@ -10,10 +10,10 @@ import UIKit
 final class RMEpisodeViewController: UIViewController, RMEpisodeListViewDelegate{
     
     let episodeListView = RMEpisodeListView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.largeTitleDisplayMode = .automatic
         title = "Episodes"
         view.backgroundColor = .systemBackground
@@ -33,13 +33,13 @@ final class RMEpisodeViewController: UIViewController, RMEpisodeListViewDelegate
     }
     
     private func setUpView(){
-       episodeListView.delegate = self
+        episodeListView.delegate = self
         view.addSubview(episodeListView)
         NSLayoutConstraint.activate([
-           episodeListView.topAnchor.constraint(equalTo: view.topAnchor),
-           episodeListView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-           episodeListView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-           episodeListView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            episodeListView.topAnchor.constraint(equalTo: view.topAnchor),
+            episodeListView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            episodeListView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            episodeListView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -48,5 +48,5 @@ final class RMEpisodeViewController: UIViewController, RMEpisodeListViewDelegate
         detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailVC, animated: true)
     }
-
+    
 }

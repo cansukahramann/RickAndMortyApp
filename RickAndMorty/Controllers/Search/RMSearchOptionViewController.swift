@@ -28,7 +28,7 @@ final class RMSearchOptionViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -41,7 +41,7 @@ final class RMSearchOptionViewController: UIViewController {
         tableView.dataSource = self
         
         NSLayoutConstraint.activate([
-        
+            
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 10),
             tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),

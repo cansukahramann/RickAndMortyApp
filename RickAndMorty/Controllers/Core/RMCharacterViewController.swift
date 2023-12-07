@@ -10,10 +10,10 @@ import UIKit
 final class RMCharacterViewController: UIViewController, RMCharacterListViewDelegate{
     
     let characterListView = RMCharacterListView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.largeTitleDisplayMode = .automatic
         title = "Characters"
         view.backgroundColor = .systemBackground
@@ -49,5 +49,5 @@ final class RMCharacterViewController: UIViewController, RMCharacterListViewDele
         detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailVC, animated: true)
     }
-
+    
 }

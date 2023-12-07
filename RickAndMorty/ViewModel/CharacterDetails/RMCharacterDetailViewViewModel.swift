@@ -30,28 +30,28 @@ final class RMCharacterDetailViewViewModel{
     }
     
     private func setUpSection(){
-       sections = [
-        .photo(viewModel: .init(imageUrl: URL(string: character.image))),
-        .information(viewModels: [
-            .init(type:.status,value: character.status.text),
-            .init(type:.gender,value: character.gender.rawValue),
-            .init(type:.type,value: character.type),
-            .init(type:.species,value: character.species),
-            .init(type:.origin,value: character.origin.name),
-            .init(type:.location,value: character.location.name),
-            .init(type:.created,value: character.created),
-            .init(type:.episodeCount,value: "\(character.episode.count)")
-        ]),
-        .episodes(viewModels: character.episode.compactMap({
-            return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0))
-        } ))
-       ]
+        sections = [
+            .photo(viewModel: .init(imageUrl: URL(string: character.image))),
+            .information(viewModels: [
+                .init(type:.status,value: character.status.text),
+                .init(type:.gender,value: character.gender.rawValue),
+                .init(type:.type,value: character.type),
+                .init(type:.species,value: character.species),
+                .init(type:.origin,value: character.origin.name),
+                .init(type:.location,value: character.location.name),
+                .init(type:.created,value: character.created),
+                .init(type:.episodeCount,value: "\(character.episode.count)")
+            ]),
+            .episodes(viewModels: character.episode.compactMap({
+                return RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0))
+            } ))
+        ]
     }
     
     private var requestUrl: URL? {
         return URL(string: character.url)
     }
-     
+    
     var title: String{
         character.name.uppercased()
     }
@@ -60,23 +60,23 @@ final class RMCharacterDetailViewViewModel{
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)))
-            item.contentInsets.bottom = 10
+        item.contentInsets.bottom = 10
         
         let group = NSCollectionLayoutGroup.vertical(
             layoutSize:NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .fractionalHeight(0.5)) ,
             subitems: [item] )
-            
+        
         let section = NSCollectionLayoutSection(group: group)
         return section
     }
     
-     func createInformationSection() -> NSCollectionLayoutSection {
+    func createInformationSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.5),
             heightDimension: .fractionalHeight(1.0)))
-            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
         
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize:NSCollectionLayoutSize(
@@ -87,11 +87,11 @@ final class RMCharacterDetailViewViewModel{
         return section
     }
     
-     func createEpisodesSection() -> NSCollectionLayoutSection {
+    func createEpisodesSection() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalHeight(1.0)))
-            item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 8, bottom: 10, trailing: 5 )
+        item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 8, bottom: 10, trailing: 5 )
         
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize:NSCollectionLayoutSize(

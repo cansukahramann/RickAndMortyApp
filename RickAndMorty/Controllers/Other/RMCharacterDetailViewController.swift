@@ -36,7 +36,7 @@ final class RMCharacterDetailViewController: UIViewController {
         detailView.collectionView.delegate = self
         detailView.collectionView.dataSource = self
         
-  }
+    }
     @objc private func didTabShare(){
         
     }
@@ -89,7 +89,7 @@ extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectio
             }
             cell.configure(with: viewModels[indexPath.row])
             return cell
-
+            
         case.episodes(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: RMCharacterEpisodeCollectionViewCell.cellIdentifer,

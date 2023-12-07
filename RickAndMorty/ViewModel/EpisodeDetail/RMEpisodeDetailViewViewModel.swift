@@ -31,7 +31,7 @@ final class RMEpisodeDetailViewViewModel {
     weak var delegate: RMEpisodeDetailViewViewModelDelegate?
     
     private(set) var cellViewModels: [SectionType] = []
-
+    
     init(endpointUrl: URL?) {
         self.endpointUrl = endpointUrl
     }
@@ -62,16 +62,16 @@ final class RMEpisodeDetailViewViewModel {
                 .init(title: "Episode", value: episode.episode),
                 .init(title: "Created", value: createdString)]),
             
-            .characters(viewModel: characters.compactMap({ character in
-                return RMCharacterCollectionViewCellViewModel(characterName: character.name,
-                                                              characterStatus: character.status,
-                                                              characterImageUrl: URL(string: character.image))
-            }))
+                .characters(viewModel: characters.compactMap({ character in
+                    return RMCharacterCollectionViewCellViewModel(characterName: character.name,
+                                                                  characterStatus: character.status,
+                                                                  characterImageUrl: URL(string: character.image))
+                }))
             
-            ]
+        ]
     }
     
-     func fetchEpisodeData() {
+    func fetchEpisodeData() {
         guard let url = endpointUrl,
               let request = RMRequest(url: url) else {
             return
@@ -92,7 +92,7 @@ final class RMEpisodeDetailViewViewModel {
         
         let group = DispatchGroup()
         var characters = [RMCharacter]()
-
+        
         for request in requests {
             group.enter()
             

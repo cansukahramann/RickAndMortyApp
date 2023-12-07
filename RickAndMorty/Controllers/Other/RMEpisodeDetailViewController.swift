@@ -21,7 +21,7 @@ final class RMEpisodeDetailViewController: UIViewController, RMEpisodeDetailView
     required init?(coder: NSCoder) {
         fatalError()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -39,7 +39,7 @@ final class RMEpisodeDetailViewController: UIViewController, RMEpisodeDetailView
             detailView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             detailView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        
+            
         ])
     }
     @objc
@@ -54,7 +54,7 @@ final class RMEpisodeDetailViewController: UIViewController, RMEpisodeDetailView
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
-
+    
     
     func didFetchEpisodeDetails() {
         detailView.configure(with: viewModel)
