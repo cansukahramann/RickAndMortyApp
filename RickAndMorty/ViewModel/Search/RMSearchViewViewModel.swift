@@ -36,6 +36,9 @@ final class RMSearchViewViewModel {
     }
     
     func executeSearch() {
+        guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return
+        }
         
         var queryParams: [URLQueryItem] = [URLQueryItem(name: "name", value: searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))]
         
@@ -69,7 +72,8 @@ final class RMSearchViewViewModel {
     }
     
     private func processSearchResult(model: Codable) {
-        var resultVM: RMSearchResultViewModel?
+        var resultVM: RMSearchResultType?
+        var nextURL: String?
         if let characterResult = model as? RMGetAllCharactersResponse {
             resultVM  = .characters(characterResult.results.compactMap({
                 return RMCharacterCollectionViewCellViewModel(
@@ -77,22 +81,28 @@ final class RMSearchViewViewModel {
                     characterStatus: $0.status,
                     characterImageUrl: URL(string: $0.image))
             }))
+            nextURL = characterResult.info.next
         }
         else if let episodesResult = model as? RMGetAllEpisodesResponse {
             resultVM = .episodes(episodesResult.results.compactMap({
                 return RMCharacterEpisodeCollectionViewCellViewModel(
                     episodeDataUrl: URL(string: $0.url))
             }))
+            nextURL = episodesResult.info.next
+
         }
         else if let locationResult = model as? RMGetAllLocationsResponse {
             resultVM = .loactions(locationResult.results.compactMap({
                 return RMLocationTableViewCellViewModel(location: $0)
             }))
+            nextURL = locationResult.info.next
+
         }
         
         if let results = resultVM {
             self.searchResultModel = model
-            self.searchReslutHandler?(results)
+            let vm = RMSearchResultViewModel(results: results, next: nextURL )
+            self.searchReslutHandler?(vm)
         } else {
             handleNoResults()
         }

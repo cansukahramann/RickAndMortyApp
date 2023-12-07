@@ -50,12 +50,13 @@ final class RMLocationViewViewModel {
         guard !isLoadingMoreLocations else {
             return
         }
-        isLoadingMoreLocations = true
-        
+       
         guard let nextUrlString = apiInfo?.next,
               let url = URL(string: nextUrlString) else {
             return
         }
+        
+        isLoadingMoreLocations = true
         
         guard let request = RMRequest(url: url) else {
             isLoadingMoreLocations = false
@@ -71,6 +72,7 @@ final class RMLocationViewViewModel {
                 let moreResults = responseModel.results
                 let info = responseModel.info
                 self.apiInfo = info
+                
                 self.cellViewModels.append(contentsOf: moreResults.compactMap({
                     return RMLocationTableViewCellViewModel(location: $0)
                 }))

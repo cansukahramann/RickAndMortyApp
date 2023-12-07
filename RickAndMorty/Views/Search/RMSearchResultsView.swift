@@ -46,8 +46,10 @@ class RMSearchResultsView: UIView {
         return collectionView
     }()
     
-    
+    ///TableView viewModels
     private var locationCellViewModels: [RMLocationTableViewCellViewModel] = []
+    
+    ///CollectionView ViewModels
     private var collectionViewCellViewModels: [any Hashable] = []
     
     // MARK: - Init
@@ -69,7 +71,7 @@ class RMSearchResultsView: UIView {
             return
         }
         
-        switch viewModel {
+        switch viewModel.results {
         case.characters(let viewModels):
             self.collectionViewCellViewModels = viewModels
             setUpCollectionView()
@@ -187,4 +189,97 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
             height: 100
         )
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionFooter,
+              let footer = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier, for: indexPath) as? RMFooterLoadingCollectionReusableView else {
+            fatalError("Unsupported")
+        }
+        if let viewModel = viewModel, viewModel.shouldShowLoadIndicator {
+            footer.startAnimating()
+        }
+        return footer
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        guard let viewModel =  viewModel,
+            viewModel.shouldShowLoadIndicator else{
+            return .zero
+        }
+        return CGSize(width: collectionView.frame.width, height: 100)
+    }
 }
+
+// MARK: - ScrollViewDelegate
+
+extension RMSearchResultsView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !locationCellViewModels.isEmpty {
+            handleLocationPagination(scrollView: scrollView)
+        } else {
+            handleCharacterOrEpisodePagination(scrollView: scrollView)
+        }
+    }
+    
+    private func handleCharacterOrEpisodePagination(scrollView: UIScrollView) {
+        guard let viewModel = viewModel,
+              !collectionViewCellViewModels.isEmpty,
+              viewModel.shouldShowLoadIndicator,
+              !viewModel.isLoadingMoreResults else {
+            return
+        }
+        
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+            let offset = scrollView.contentOffset.y
+            let totalContetnHeight = scrollView.contentSize.height
+            let totalScrollViewFixedHeight = scrollView.frame.size.height
+            
+            if offset >= (totalContetnHeight - totalScrollViewFixedHeight - 120){
+                
+                viewModel.fetchAdditionalResults { [weak self] newResults in
+                    //Refresh table
+                    self?.tableView.tableFooterView = nil
+                    self?.collectionViewCellViewModels = newResults
+                }
+            }
+        }
+    }
+    
+    private func handleLocationPagination(scrollView: UIScrollView) {
+        guard let viewModel = viewModel,
+              !locationCellViewModels.isEmpty,
+              viewModel.shouldShowLoadIndicator,
+              !viewModel.isLoadingMoreResults else {
+            return
+        }
+        
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+            let offset = scrollView.contentOffset.y
+            let totalContetnHeight = scrollView.contentSize.height
+            let totalScrollViewFixedHeight = scrollView.frame.size.height
+            
+            if offset >= (totalContetnHeight - totalScrollViewFixedHeight - 120){
+                DispatchQueue.main.async {
+                    self?.showTableLoadingIndicator()
+                }
+                
+                viewModel.fetchAdditionalLocation { [weak self] newResults in
+                    //Refresh table
+                    self?.tableView.tableFooterView = nil
+                    self?.locationCellViewModels = newResults
+                    self?.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    private func showTableLoadingIndicator() {
+        let footer = RMTableLoadingFooterView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 100))
+        tableView.tableFooterView = footer
+    }
+}
+
+

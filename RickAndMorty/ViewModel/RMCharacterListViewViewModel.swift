@@ -119,6 +119,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         cell.configure(with: cellViewModels[indexPath.row ])
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionFooter,
               let footer = collectionView.dequeueReusableSupplementaryView(
@@ -130,7 +131,6 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         return footer
         
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         guard shouldShowLoadIndicator else{
@@ -148,8 +148,8 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
         if isIphone{
             width = (bounds.width-30)/2
         } else {
-            //ipad || mac
-            width = (bounds.width-50)/4 
+            //ipad
+            width = (bounds.width-50)/4
         }
         return CGSize(
             width: width,
