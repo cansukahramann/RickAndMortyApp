@@ -70,7 +70,7 @@ final class RMEpisodeListViewViewModel: NSObject {
             }
         }
     }
-    ///Paginate if additional episodes are needed 
+    ///Paginate if additional episodes are needed
     func fetchAdditionalEpisode(url: URL){
         guard !isLoadingMoreCharacter else {
             return
@@ -167,20 +167,6 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
         let selection = episodes[indexPath.row]
         delegate?.didSelectEpisode(selection)
     }
-    
-    //    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    //        guard !isLoadingMoreCharacter, shouldShowLoadIndicator, !cellViewModels.isEmpty, indexPath.item >= cellViewModels.count - 2 else { return }
-    //
-    //        guard let nextUrlString = apiInfo?.next,
-    //        let url = URL(string: nextUrlString) else {
-    //            return
-    //        }
-    //
-    //        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
-    //            self?.fetchAdditionalCharacter(url: url)
-    //            t.invalidate()
-    //        }
-    //    }
 }
 
 extension RMEpisodeListViewViewModel: UIScrollViewDelegate {

@@ -21,7 +21,7 @@ final class RMEpisodeDetailView: UIView {
             collectionView?.reloadData()
             self.collectionView?.isHidden = false
             UIView.animate(withDuration: 0.3) {
-                self.collectionView?.alpha = 1 
+                self.collectionView?.alpha = 1
             }
         }
     }
@@ -37,7 +37,7 @@ final class RMEpisodeDetailView: UIView {
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false 
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .systemBackground
         let collectionView = createCollectionView()
         addSubviews(collectionView, spinner)

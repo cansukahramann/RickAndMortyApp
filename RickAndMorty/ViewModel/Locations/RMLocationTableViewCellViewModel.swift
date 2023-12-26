@@ -7,7 +7,6 @@
 
 import Foundation
 
-// hashble equatable'ı conform ediyor, yazmaya gerek yok
 struct RMLocationTableViewCellViewModel: Hashable, Equatable {
     
     private let location: RMLocation

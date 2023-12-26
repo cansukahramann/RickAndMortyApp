@@ -19,7 +19,7 @@ final class  RMSearchResultViewModel {
     public private(set) var isLoadingMoreResults =  false
     
     var shouldShowLoadIndicator: Bool {
-        return next != nil 
+        return next != nil
     }
     
     func fetchAdditionalLocation(completion: @escaping ([RMLocationTableViewCellViewModel]) -> Void ) {
@@ -145,7 +145,6 @@ final class  RMSearchResultViewModel {
                     DispatchQueue.main.async { [self] in
                         self.isLoadingMoreResults = false
                         
-                        //Notify via callback
                         completion(newResults)
                     }
                 case .failure(let failure):

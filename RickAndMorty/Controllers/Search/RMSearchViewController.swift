@@ -12,9 +12,9 @@ class RMSearchViewController: UIViewController {
     ///Configuration for search session
     struct Config {
         enum `Type` {
-            case character // name | status | gender
-            case episode  // name
-            case location // name | type
+            case character
+            case episode
+            case location
             
             var endpoint: RMEndpoint {
                 switch self {

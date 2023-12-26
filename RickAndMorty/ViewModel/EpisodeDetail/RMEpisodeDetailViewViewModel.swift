@@ -15,7 +15,6 @@ final class RMEpisodeDetailViewViewModel {
     
     private let endpointUrl: URL?
     
-    //????*
     private var dataTuple: (episode: RMEpisode,characters: [RMCharacter])? {
         didSet {
             createCellViewModels()

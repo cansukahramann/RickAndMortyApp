@@ -190,14 +190,12 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
         let bounds = collectionView.bounds
         
         if currentViewModel is RMCharacterCollectionViewCellViewModel {
-            //Character size
             let width = UIDevice.isiPhone ? (bounds.width-30)/2 : (bounds.width-50)/4
-             return CGSize(
+            return CGSize(
                 width: width,
                 height: width * 1.5
             )
         }
-        //Episode
         let width = UIDevice.isiPhone ? (bounds.width-20) : (bounds.width-50)/2
         return CGSize(
             width: width,
@@ -293,7 +291,6 @@ extension RMSearchResultsView: UIScrollViewDelegate {
                 }
                 
                 viewModel.fetchAdditionalLocation { [weak self] newResults in
-                    //Refresh table
                     self?.tableView.tableFooterView = nil
                     self?.locationCellViewModels = newResults
                     self?.tableView.reloadData()

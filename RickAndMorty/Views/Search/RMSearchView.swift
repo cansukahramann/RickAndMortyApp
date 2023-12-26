@@ -13,7 +13,7 @@ protocol RMSearchViewDelegate: AnyObject {
     func rmSearchView(_ searchView: RMSearchView, didSelectLocation location: RMLocation)
     func rmSearchView(_ searchView: RMSearchView, didSelectCharacter character: RMCharacter)
     func rmSearchView(_ searchView: RMSearchView, didSelectEpisode episode: RMEpisode)
-
+    
 }
 
 final class RMSearchView: UIView {
@@ -38,7 +38,7 @@ final class RMSearchView: UIView {
         
         setUpHandlers(viewModel: viewModel)
         
-        resultsView.delegate = self 
+        resultsView.delegate = self
     }
     
     required init?(coder: NSCoder) {

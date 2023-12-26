@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIView {
-    // Variadic parameter.
+    
     func addSubviews(_ views: UIView...){
         views.forEach { addSubview($0) }
     }

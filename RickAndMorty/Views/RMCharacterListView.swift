@@ -91,7 +91,6 @@ extension RMCharacterListView: RMCharacterListViewViewModelDelegate {
     }
     
     func didLoadMoreCharacters(with newIndexPaths: [IndexPath]) {
-        // performBatchUpdates -> animasyon için gerekli fakat crash riski yüksek.
         collectionView.performBatchUpdates {
             self.collectionView.insertItems(at: newIndexPaths)
         }

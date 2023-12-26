@@ -55,15 +55,12 @@ final class RMSettingsViewController: UIViewController {
         }
         
         if let url = option.taargetUrl {
-            //open website
             let vc = SFSafariViewController(url: url)
             present(vc, animated: true)
         } else if option == .rateApp {
-            //show rating prompt
             if let windowScene = view.window?.windowScene {
                 SKStoreReviewController.requestReview(in: windowScene)
             }
         }
     }
-    
 }

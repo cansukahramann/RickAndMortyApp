@@ -7,10 +7,6 @@
 
 import UIKit
 
-// Protocol - Delegate
-// 1. Hangi class'ın protoculu olacaksa, o class içinde o protocol bir değişkende tutulur.
-// 2. Protocol'ü kendine uygulayan class, bu değişkene kendisini atamalı. (... .delegate = self)
-
 protocol RMCharacterListViewViewModelDelegate: AnyObject {
     func didLoadInitialCharacters()
     func didLoadMoreCharacters(with newIndexPaths: [IndexPath])
@@ -67,7 +63,7 @@ final class RMCharacterListViewViewModel: NSObject {
         isLoadingMoreCharacter = true
         guard let request = RMRequest(url: url) else {
             isLoadingMoreCharacter = false
-            return 
+            return
         }
         
         RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
@@ -142,7 +138,7 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-       
+        
         let bounds = UIScreen.main.bounds
         let width: CGFloat
         if UIDevice.isiPhone {

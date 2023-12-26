@@ -28,9 +28,7 @@ final class RMLocationView: UIView {
             }
             viewModel?.registerDidFinishPaginationBlock { [weak self] in
                 DispatchQueue.main.async {
-                    //loading indicator go bye bye
                     self?.tableView.tableFooterView = nil
-                    //Reload data
                     self?.tableView.reloadData()
                 }
             }
@@ -99,7 +97,6 @@ final class RMLocationView: UIView {
 extension RMLocationView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        //notify controller of selection
         guard let locationModel = viewModel?.location(at: indexPath.row) else {
             return
         }

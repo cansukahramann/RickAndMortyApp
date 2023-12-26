@@ -48,5 +48,4 @@ final class RMEpisodeViewController: UIViewController, RMEpisodeListViewDelegate
         detailVC.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
 }

@@ -25,8 +25,6 @@ final class RMLocationViewViewModel {
             }
         }
     }
-    //Location response info
-    //Will content next url, if present
     
     private var apiInfo: RMGetAllLocationsResponse.Info?
     
@@ -39,7 +37,7 @@ final class RMLocationViewViewModel {
     var isLoadingMoreLocations = false
     private var didFinishPagination: (() -> Void)?
     
-    // MARK: - Init 
+    // MARK: - Init
     init() { }
     
     func registerDidFinishPaginationBlock(_ block: @escaping() -> Void) {
@@ -50,7 +48,7 @@ final class RMLocationViewViewModel {
         guard !isLoadingMoreLocations else {
             return
         }
-       
+        
         guard let nextUrlString = apiInfo?.next,
               let url = URL(string: nextUrlString) else {
             return
@@ -78,8 +76,6 @@ final class RMLocationViewViewModel {
                 }))
                 DispatchQueue.main.async { [self] in
                     self.isLoadingMoreLocations = false
-                    
-                    //Notify via callback
                     self.didFinishPagination?()
                 }
             case .failure(let failure):
@@ -106,7 +102,7 @@ final class RMLocationViewViewModel {
                     self?.delegate?.didFetchInitialLocations()
                 }
             case .failure(let error):
-                // TODO: Handle error 
+                // TODO: Handle error
                 break
             }
         }

@@ -27,7 +27,7 @@ final class RMCharacterDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = viewModel.title
-        view.addSubview(detailView) 
+        view.addSubview(detailView)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
                                                             target: self,
                                                             action: #selector(didTabShare))

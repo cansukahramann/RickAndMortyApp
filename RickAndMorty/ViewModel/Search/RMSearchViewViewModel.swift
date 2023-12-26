@@ -89,14 +89,14 @@ final class RMSearchViewViewModel {
                     episodeDataUrl: URL(string: $0.url))
             }))
             nextURL = episodesResult.info.next
-
+            
         }
         else if let locationResult = model as? RMGetAllLocationsResponse {
             resultVM = .loactions(locationResult.results.compactMap({
                 return RMLocationTableViewCellViewModel(location: $0)
             }))
             nextURL = locationResult.info.next
-
+            
         }
         
         if let results = resultVM {
@@ -115,7 +115,7 @@ final class RMSearchViewViewModel {
     func set(query text: String) {
         self.searchText = text
     }
-
+    
     func set (value: String, for option : RMSearchInputViewViewModel.DynamicOptions) {
         optionMap[option] = value
         let tuple = (option, value)
@@ -144,6 +144,6 @@ final class RMSearchViewViewModel {
         }
         return searchModel.results[index]
     }
-   
+    
 }
 

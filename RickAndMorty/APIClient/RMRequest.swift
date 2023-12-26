@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// This class preapres the URL 
+/// This class preapres the URL
 final class RMRequest{
     
     private struct Constants {
@@ -104,7 +104,7 @@ final class RMRequest{
             }
         }
         return nil
-    } 
+    }
 }
 
 extension RMRequest {
