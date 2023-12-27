@@ -20,8 +20,3 @@ Developed a custom URL cache, optimizing data retrieval and storage. Features in
 
 ## 🖼️ Custom Image Cache
 In addition to the URL cache, a personalized image cache was implemented. This not only optimizes image retrieval but also allows for tailored strategies like compression and decompression.
-
-# Learning Experience
-
-## 🎓 Dynamic Learning Experience
-This project was more than just a coding exercise. It was a dynamic learning experience where theoretical knowledge met hands-on application. The tutorial series served as an invaluable guide, transforming concepts into tangible solutions.
